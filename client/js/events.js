@@ -84,7 +84,7 @@ Template.website_item.events({
 				$('#upvote-'+this._id).attr('title', "You already Up voted. Click again to remove your vote.");
 			}
 		} else {
-			$('#upvote-'+this._id).attr('title', "Please login if you want to vote.");
+			$('#upvote-'+this._id).attr('title', "Please login to vote.");
 		}
 	},
 	"mouseover .js-downvote":function(event){
@@ -98,7 +98,7 @@ Template.website_item.events({
 				$('#downvote-'+this._id).attr('title', "You already Down voted. Click again to remove your vote.");
 			}
 		} else {
-			$('#downvote-'+this._id).attr('title', "Please login if you want to vote.");
+			$('#downvote-'+this._id).attr('title', "Please login to vote.");
 		}
 	}	
 })
