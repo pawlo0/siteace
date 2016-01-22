@@ -40,5 +40,13 @@ Template.website_item.helpers({
 		} else {
 			return 0;
 		}
+	},
+	getDate:function(){
+		if (this.createdOn) {
+			return this.createdOn.toString("d-MMM-yyyy")
+		} else {
+			return false
+		}
+		
 	}
 });

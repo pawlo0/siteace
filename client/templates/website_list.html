@@ -14,6 +14,11 @@
 	<p>
 		{{description}}
 	</p>
+	{{#if getDate}}
+	<p>
+		Added in: {{getDate}}
+	</p>
+	{{/if}}
 	<h4>Up Votes: {{totalUpvotes}}</h4>
 	<h5>Down Votes: {{totalDownvotes _id}}</h5>
 	<a href="#" id="upvote-{{_id}}" tabindex="0" class="btn btn-default js-upvote" role="button" data-toggle="popover" data-trigger="focus" data-content="In order to vote you must be a registered user">
