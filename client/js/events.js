@@ -1,5 +1,6 @@
 /* global Websites */
 
+
 Template.website_form.events({
 	// Only show the add new website form in case user is loggin
 	"click .js-toggle-website-form":function(event){
@@ -43,12 +44,14 @@ Template.website_form.events({
 Template.website_item.events({
 	"click .js-upvote":function(event){
 		if (Meteor.user()){
-			if (!this.rating || isNaN(this.rating)) {
-				var newrate = 1;
+			var userId = Meteor.user()._id;
+			if ($.inArray(userId, this.upvotes) == -1) {
+				Websites.update({_id: this._id}, {$push: {upvotes: userId}});
+				Websites.update({_id: this._id}, {$pull: {downvotes: userId}});
 			} else {
-				var newrate = this.rating + 1;
-			};
-			Websites.update({_id: this._id}, {$set: {rating: newrate}});			
+				Websites.update({_id: this._id}, {$pull: {upvotes: userId}});
+			}
+			
 		} else {
 			$('#upvote-'+this._id).popover('toggle');
 		}
@@ -57,16 +60,45 @@ Template.website_item.events({
 	}, 
 	"click .js-downvote":function(event){
 		if (Meteor.user()){
-			if (!this.rating || isNaN(this.rating)) {
-				var newrate = -1;
+			var userId = Meteor.user()._id;
+			if ($.inArray(userId, this.downvotes) == -1) {
+				Websites.update({_id: this._id}, {$push: {downvotes: userId}});
+				Websites.update({_id: this._id}, {$pull: {upvotes: userId}});
 			} else {
-				var newrate = this.rating - 1;
-			};
-			Websites.update({_id: this._id}, {$set: {rating: newrate}});			
+				Websites.update({_id: this._id}, {$pull: {downvotes: userId}});
+			}
 		} else {
-			$('#upvote-'+this._id).popover('toggle');
+			$('#downvote-'+this._id).popover('toggle');
 		}
 
 		return false;// prevent the button from reloading the page
-	}
+	},
+	"mouseover .js-upvote":function(event){
+		if (Meteor.user()){
+			var userId = Meteor.user()._id;
+			if ($.inArray(userId, this.upvotes) == -1 && $.inArray(userId, this.downvotes) == -1) {
+				$('#upvote-'+this._id).attr('title', "Click to give an Up Vote.");
+			} else if ($.inArray(userId, this.downvotes) != -1) {
+				$('#upvote-'+this._id).attr('title', "You already voted a negative feedback. Click if you want to change your opinion.");
+			} else {
+				$('#upvote-'+this._id).attr('title', "You already Up voted. Click again to remove your vote.");
+			}
+		} else {
+			$('#upvote-'+this._id).attr('title', "Please login if you want to vote.");
+		}
+	},
+	"mouseover .js-downvote":function(event){
+		if (Meteor.user()){
+			var userId = Meteor.user()._id;
+			if ($.inArray(userId, this.upvotes) == -1 && $.inArray(userId, this.downvotes) == -1) {
+				$('#downvote-'+this._id).attr('title', "Click to give an Down Vote.");
+			} else if ($.inArray(userId, this.upvotes) != -1) {
+				$('#downvote-'+this._id).attr('title', "You already voted a positive feedback. Click if you want to change your opinion.");
+			} else {
+				$('#downvote-'+this._id).attr('title', "You already Down voted. Click again to remove your vote.");
+			}
+		} else {
+			$('#downvote-'+this._id).attr('title', "Please login if you want to vote.");
+		}
+	}	
 })
