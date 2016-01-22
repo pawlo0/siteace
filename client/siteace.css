@@ -2,3 +2,7 @@
 .hidden_div{
 	display:none;
 }
+
+.js-website_item :hover{
+    cursor:pointer;
+}
