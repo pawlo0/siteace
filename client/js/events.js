@@ -1,3 +1,5 @@
+/* global Websites */
+
 Template.website_form.events({
 	// Only show the add new website form in case user is loggin
 	"click .js-toggle-website-form":function(event){
@@ -37,3 +39,34 @@ Template.website_form.events({
 
 	}
 });
+
+Template.website_item.events({
+	"click .js-upvote":function(event){
+		if (Meteor.user()){
+			if (!this.rating || isNaN(this.rating)) {
+				var newrate = 1;
+			} else {
+				var newrate = this.rating + 1;
+			};
+			Websites.update({_id: this._id}, {$set: {rating: newrate}});			
+		} else {
+			$('#upvote-'+this._id).popover('toggle');
+		}
+
+		return false;// prevent the button from reloading the page
+	}, 
+	"click .js-downvote":function(event){
+		if (Meteor.user()){
+			if (!this.rating || isNaN(this.rating)) {
+				var newrate = -1;
+			} else {
+				var newrate = this.rating - 1;
+			};
+			Websites.update({_id: this._id}, {$set: {rating: newrate}});			
+		} else {
+			$('#upvote-'+this._id).popover('toggle');
+		}
+
+		return false;// prevent the button from reloading the page
+	}
+})

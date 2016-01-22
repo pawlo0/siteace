@@ -10,31 +10,3 @@
 		{{> website_list}}
 	</div>
 </body>
-
-
-
-<!-- template that displays several website items -->
-<template name="website_list">
-	<ol>
-	{{#each websites}}
-	{{>website_item}}
-	{{/each}}
-	</ol>
-</template>
-
-<!-- template that displays individual website entries -->
-<template name="website_item">
-<li>
-	<a href="{{url}}">{{title}}</a>
-	<p>
-		{{description}}
-	</p>
-	<a href="#" class="btn btn-default js-upvote">
-		<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-	</a>
-	<a href="#" class="btn btn-default js-downvote">
-		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-	</a>
-	<!-- you will be putting your up and down vote buttons in here! -->
-</li>
-</template>
