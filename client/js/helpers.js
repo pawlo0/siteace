@@ -76,6 +76,13 @@ Template.website_details.helpers({
 		}
 		
 	},
+	getAuthor:function(createdBy){
+		if (createdBy) {
+			return Meteor.users.findOne({_id: createdBy}).username
+		} else {
+			return "Startup"
+		}
+	},
 	comments:function(){
 		return Comments.find({websiteId: this._id});
 	}
