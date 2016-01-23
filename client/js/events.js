@@ -51,9 +51,9 @@ Template.website_form.events({
 		return false;// stop the form submit from reloading the page
 
 	},
-	"change #url":function(event){
+	"keyup #url":function(event){
 		var url = $("#url").val();
-		if (url.substring(0,3).toLowerCase() == "www"){
+		if (url.substring(0,7).toLowerCase() != "http://"){
 			url = "http://"+url;
 			$("#url").val(url);
 		}
@@ -75,12 +75,14 @@ Template.website_form.events({
                 		var description = tagMeta.description.content;
 					}
 					if (title == null || title == ""){
+						$('#title').val('');
 						$('#description').val(description);
 						$('#title').parent('.form-group').addClass('has-error has-feedback').removeClass('has-success');
 						$('#description').parent('.form-group').addClass('has-success').removeClass('has-error has-feedback');
 						$("#retrieveAlert").addClass('alert-warning').text('It was impossible to retrieve all info. Please add before submit.').show();
 					} else if (description == null || description == "") {
 						$('#title').val(title);
+						$('#description').val('');
 						$('#title').parent('.form-group').addClass('has-success').removeClass('has-error has-feedback');
 						$('#description').parent('.form-group').addClass('has-error has-feedback').removeClass('has-success');
 						$("#retrieveAlert").addClass('alert-warning').text('It was impossible to retrieve all info. Please add before submit.').show();
