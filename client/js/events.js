@@ -102,6 +102,9 @@ Template.website_form.events({
 		$('#description').val("").parent('.form-group').removeClass('has-success').removeClass('has-error has-feedback');
 		$('#url').val("").parent('.form-group').removeClass('has-success').removeClass('has-error has-feedback');
 		$("#retrieveAlert").removeClass('alert-warning').removeClass('alert-success').text('').hide();
+	},
+	"click .close":function(){
+		$('.js-clear-form').click();
 	}
 });
 
