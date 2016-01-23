@@ -123,7 +123,34 @@ Template.website_details.events({
 			$('#notLoggedIn').show();
 		}
 		return false;
-	}
+	},
+	"click .js-delete-website":function(event){
+		if (Meteor.user()) {
+			if (Meteor.user()._id == this.createdBy) {
+				Websites.remove({_id: this._id});
+				var commentsForThisSite = Comments.find({websiteId: this._id}).fetch();
+				for (var i=0; i < commentsForThisSite.length; i++){
+					Comments.remove({_id: commentsForThisSite[i]._id});
+				}
+				window.location = "/websites"
+			} else {
+				$('.js-delete-website').attr('title', "You must be the author to delete this website.");
+			}
+		} else {
+			$('.js-delete-website').attr('title', "Login to delete websites.");
+		}
+	},
+	"mouseover .js-delete-website":function(event){
+		if (Meteor.user()) {
+			if (Meteor.user()._id == this.createdBy) {
+				$('.js-delete-website').attr('title', "Delete this website. Warning! This will also delete all comments about this website.");
+			} else {
+				$('.js-delete-website').attr('title', "You must be the author of this website if you want to delete it.");
+			}
+		} else {
+			$('.js-delete-website').attr('title', "Login to delete websites.");
+		}		
+	}	
 });
 
 Template.comments_list.events({
