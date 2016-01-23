@@ -1,5 +1,11 @@
 /* global Websites Comments*/
 
+Template.navbar.events({
+	"keyup #srch-term":function(event){
+		Session.set("searchValue", event.target.value);
+	}
+});
+
 Template.website_list.events({
 	"click .js-toggle-website-form":function(event){
 		if (Meteor.user()) {
@@ -8,8 +14,13 @@ Template.website_list.events({
 		} else {
 			$("a.js-toggle-website-form").popover('toggle');
 		}
+	},
+	"click .js-clear-search":function(){
+		Session.set("searchValue", undefined);
+		$("#srch-term").val("");
 	}
 })
+
 Template.website_form.events({
 	// Only show the add new website form in case user is loggin
 	"submit .js-save-website-form":function(event){

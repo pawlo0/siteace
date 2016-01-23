@@ -2,8 +2,15 @@
 
 Template.website_list.helpers({
 	websites:function(){
+		var searchValue = Session.get("searchValue");		
 		var upvotes, downvotes;
-		var all = Websites.find().fetch();
+		if(searchValue == "" || searchValue == undefined || searchValue == null){		
+			var all = Websites.find().fetch();
+		} else {
+			var all = Websites.find({$or: [{"title": {$regex : ".*"+searchValue+".*"}},
+                             {"url": {$regex : ".*"+searchValue+".*"}},
+                             {"description": {$regex : ".*"+searchValue+".*"}}]}).fetch();
+		}
 		for (var i=0; i < all.length; i++){
 			if (all[i].upvotes) {
 				upvotes = all[i].upvotes.length;
@@ -22,6 +29,14 @@ Template.website_list.helpers({
 		});
 		
 		return all
+	},
+	searchOn:function(){
+		var searchValue = Session.get("searchValue");
+		if(searchValue == "" || searchValue == undefined || searchValue == null){
+			return false
+		} else {
+			return true
+		}
 	}
 });
 
