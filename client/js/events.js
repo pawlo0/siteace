@@ -110,6 +110,7 @@ Template.website_item.events({
 Template.website_details.events({
 	"submit .js-save-comment":function(event){
 		if (Meteor.user()){
+			$('#notLoggedIn').hide();
 			if (event.target.input_comment.value){
 				Comments.insert({
 					websiteId: this._id,
@@ -118,6 +119,8 @@ Template.website_details.events({
 					createdBy: Meteor.user()._id
 				})				
 			}
+		} else {
+			$('#notLoggedIn').show();
 		}
 		return false;
 	}
