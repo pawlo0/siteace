@@ -1,4 +1,4 @@
-/* global Websites */
+/* global Websites Comments*/
 
 Template.website_list.helpers({
 	websites:function(){
@@ -75,5 +75,14 @@ Template.website_details.helpers({
 			return false
 		}
 		
+	},
+	comments:function(){
+		return Comments.find({websiteId: this._id});
+	}
+});
+
+Template.comments_list.helpers({
+	getUser:function(createdBy){
+		return Meteor.users.findOne({_id: createdBy}).username
 	}
 });

@@ -1,4 +1,4 @@
-/* global Websites */
+/* global Websites Comments*/
 
 
 Template.website_form.events({
@@ -105,4 +105,45 @@ Template.website_item.events({
 		window.location = "/websites/"+this._id;
 		return false;
 	}
-})
+});
+
+Template.website_details.events({
+	"submit .js-save-comment":function(event){
+		if (Meteor.user()){
+			if (event.target.input_comment.value){
+				Comments.insert({
+					websiteId: this._id,
+					comment_body: event.target.input_comment.value,
+					createdOn: new Date(),
+					createdBy: Meteor.user()._id
+				})				
+			}
+		}
+		return false;
+	}
+});
+
+Template.comments_list.events({
+	"click .js-delete-comment":function(event){
+		if (Meteor.user()) {
+			if (Meteor.user()._id == this.createdBy) {
+				Comments.remove({_id: this._id});
+			} else {
+				$('.js-delete-comment').attr('title', "You must be the author of this comment if you want to delete it.");
+			}
+		} else {
+			$('.js-delete-comment').attr('title', "Login to delete comments.");
+		}
+	},
+	"mouseover .js-delete-comment":function(event){
+		if (Meteor.user()) {
+			if (Meteor.user()._id == this.createdBy) {
+				$('.js-delete-comment').attr('title', "Delete comment.");;
+			} else {
+				$('.js-delete-comment').attr('title', "You must be the author of this comment if you want to delete it.");
+			}
+		} else {
+			$('.js-delete-comment').attr('title', "Login to delete comments.");
+		}		
+	}
+});

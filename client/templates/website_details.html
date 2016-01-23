@@ -15,13 +15,28 @@
 			    {{/if}}
 			    <h4>Up Votes: {{totalUpvotes}}</h4>
 			    <h5>Down Votes: {{totalDownvotes _id}}</h5>
+			    <!--
 			    <a href="#" id="upvote-{{_id}}" tabindex="0" class="btn btn-default js-upvote" role="button" data-toggle="popover" data-trigger="focus" data-content="In order to vote you must be a registered user">
 				    <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
     			</a>
     			<a href="#" id="downvote-{{_id}}" tabindex="0" class="btn btn-default js-downvote" role="button" data-toggle="popover" data-trigger="focus" data-content="In order to vote you must be a registered user">
     				<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
     			</a>
+    			-->
     		</div> 
 	    </div>
+	    <div class="panel panel-default">
+	    	<div class="panel.body">
+				<form class="js-save-comment">
+					<div class="form-group">
+				    	<input type="text" class="form-control" id="input_comment" placeholder="Add a comment">
+				  	</div>
+				  	<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+			</div>
+		</div>
+		{{#each comments}}
+			{{>comments_list}}
+		{{/each}}
     </div>
 </template>

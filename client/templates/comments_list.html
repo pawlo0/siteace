@@ -1,0 +1,11 @@
+<template name="comments_list">
+    <div class="panel panel-default">
+		<div class="panel-body">
+		    <button type="button" class="close js-delete-comment"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<p>{{comment_body}}</p>
+		</div>
+		<div class="panel-footer">
+		    <h5>Added by: {{getUser createdBy}} in {{createdOn}}</h5>
+		</div>
+	</div>
+</template>
