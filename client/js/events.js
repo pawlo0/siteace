@@ -39,6 +39,56 @@ Template.website_form.events({
 		
 		return false;// stop the form submit from reloading the page
 
+	},
+	"change #url":function(event){
+		var url = $("#url").val();
+		if (url.substring(0,3).toLowerCase() == "www"){
+			url = "http://"+url;
+			$("#url").val(url);
+		}
+		console.log(url)
+		Meteor.call("getResponse", url, function(error, data){
+			if (error){
+				$("#result").text('   Impossible to retrieve information.').addClass("text-danger");
+			} else {
+				if (data != undefined){
+					var str = data.content;
+					var el = document.createElement( 'html' );
+					el.innerHTML = data.content;
+					var tagTitle = el.getElementsByTagName('title');
+					if (tagTitle[0] != undefined){
+						var title = tagTitle[0].text;
+					}
+					var tagMeta = el.getElementsByTagName('meta');
+					if (tagMeta.description != undefined){
+                		var description = tagMeta.description.content;
+					}
+					if (title == null || title == ""){
+						$('#description').val(description);
+						$('#title').parent('.form-group').addClass('has-error has-feedback').removeClass('has-success');
+						$('#description').parent('.form-group').addClass('has-success').removeClass('has-error has-feedback');
+						$("#retrieveAlert").addClass('alert-warning').text('It was impossible to retrieve all info. Please add before submit.').show();
+					} else if (description == null || description == "") {
+						$('#title').val(title);
+						$('#title').parent('.form-group').addClass('has-success').removeClass('has-error has-feedback');
+						$('#description').parent('.form-group').addClass('has-error has-feedback').removeClass('has-success');
+						$("#retrieveAlert").addClass('alert-warning').text('It was impossible to retrieve all info. Please add before submit.').show();
+					} else {
+						$('#title').val(title);
+						$('#description').val(description);
+						$('#title').parent('.form-group').addClass('has-success').removeClass('has-error has-feedback');
+						$('#description').parent('.form-group').addClass('has-success').removeClass('has-error has-feedback');
+						$("#retrieveAlert").removeClass('alert-warning').addClass('alert-success').text('Title and Description retrieved. Submit as is or change info.').show();
+					}
+				}
+			}
+		});		
+	},
+	"click .js-clear-form":function(event){
+		$('#title').val("").parent('.form-group').removeClass('has-success').removeClass('has-error has-feedback');
+		$('#description').val("").parent('.form-group').removeClass('has-success').removeClass('has-error has-feedback');
+		$('#url').val("").parent('.form-group').removeClass('has-success').removeClass('has-error has-feedback');
+		$("#retrieveAlert").removeClass('alert-warning').removeClass('alert-success').text('').hide();
 	}
 });
 

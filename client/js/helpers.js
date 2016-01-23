@@ -50,11 +50,15 @@ Template.website_item.helpers({
 		
 	},
 	getAuthor:function(createdBy){
+		
 		if (createdBy) {
-			return Meteor.users.findOne({_id: createdBy}).username
+			if (Meteor.users.findOne({_id: createdBy})){
+				return Meteor.users.findOne({_id: createdBy}).username
+			}
 		} else {
 			return "Startup"
 		}
+		
 	}
 });
 
