@@ -48,6 +48,13 @@ Template.website_item.helpers({
 			return false
 		}
 		
+	},
+	getAuthor:function(createdBy){
+		if (createdBy) {
+			return Meteor.users.findOne({_id: createdBy}).username
+		} else {
+			return "Startup"
+		}
 	}
 });
 

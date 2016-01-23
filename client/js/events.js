@@ -1,8 +1,6 @@
 /* global Websites Comments*/
 
-
-Template.website_form.events({
-	// Only show the add new website form in case user is loggin
+Template.website_list.events({
 	"click .js-toggle-website-form":function(event){
 		if (Meteor.user()) {
 			$("a.js-toggle-website-form").popover('hide');
@@ -10,7 +8,10 @@ Template.website_form.events({
 		} else {
 			$("a.js-toggle-website-form").popover('toggle');
 		}
-	}, 
+	}
+})
+Template.website_form.events({
+	// Only show the add new website form in case user is loggin
 	"submit .js-save-website-form":function(event){
 		if (!event.target.url.value){
 			$("#url_formGroup").addClass('has-error');
