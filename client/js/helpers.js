@@ -22,7 +22,7 @@ Template.website_list.helpers({
 			} else {
 				downvotes = 0;
 			}
-			all[i].rate = upvotes - downvotes;
+			all[i].rate = upvotes;
 		}
 		all.sort(function(a, b){
   			return a.rate < b.rate;

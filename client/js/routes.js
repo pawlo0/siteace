@@ -34,3 +34,12 @@ Router.route('/websites/:_id', function() {
         }
     });
 });
+
+Router.route('/about', function() {
+    this.render('navbar', {
+        to: "navbar"
+    });
+    this.render('about', {
+        to: "main",
+    });
+});
