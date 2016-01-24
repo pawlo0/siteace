@@ -28,14 +28,14 @@ Template.website_list.helpers({
   			return a.rate < b.rate;
 		});
 		
-		return all
+		return all;
 	},
 	searchOn:function(){
 		var searchValue = Session.get("searchValue");
 		if(searchValue == "" || searchValue == undefined || searchValue == null){
-			return false
+			return false;
 		} else {
-			return true
+			return true;
 		}
 	}
 });
@@ -58,9 +58,9 @@ Template.website_item.helpers({
 	},
 	getDate:function(){
 		if (this.createdOn) {
-			return this.createdOn.toString("d-MMM-yyyy")
+			return this.createdOn.toString("d-MMM-yyyy");
 		} else {
-			return false
+			return false;
 		}
 		
 	},
@@ -68,13 +68,17 @@ Template.website_item.helpers({
 		
 		if (createdBy) {
 			if (Meteor.users.findOne({_id: createdBy})){
-				return Meteor.users.findOne({_id: createdBy}).username
+				return Meteor.users.findOne({_id: createdBy}).username;
 			}
 		} else {
-			return "Startup"
+			return "Startup";
 		}
 		
-	}
+	},
+	getLogo:function(url){
+		var link = url.split("//")[1].split("/")[0];
+		return "http://"+link+"/favicon.ico";
+	}	
 });
 
 

@@ -24,6 +24,7 @@ Template.website_list.events({
 Template.website_form.events({
 	// Only show the add new website form in case user is loggin
 	"submit .js-save-website-form":function(event){
+		var title, logoURL;
 		if (!event.target.url.value){
 			$("#url_formGroup").addClass('has-error');
 			$("#url").attr("placeholder", "Must add an URL");
@@ -32,9 +33,9 @@ Template.website_form.events({
 			$("#description").attr("placeholder", "Must add a description");
 		} else {
 			if (event.target.title.value) {
-				var title = event.target.title.value;
+				title = event.target.title.value;
 			} else {
-				var title = event.target.url.value
+				title = event.target.url.value;
 			}
 			if (Meteor.user()){
 				Websites.insert({
@@ -60,7 +61,7 @@ Template.website_form.events({
 		console.log(url)
 		Meteor.call("getResponse", url, function(error, data){
 			if (error){
-				$("#result").text('   Impossible to retrieve information.').addClass("text-danger");
+				$("#retrieveAlert").text('Impossible to retrieve information.').addClass("text-warning");
 			} else {
 				if (data != undefined){
 					var str = data.content;
@@ -95,7 +96,7 @@ Template.website_form.events({
 					}
 				}
 			}
-		});		
+		});	
 	},
 	"click .js-clear-form":function(event){
 		$('#title').val("").parent('.form-group').removeClass('has-success').removeClass('has-error has-feedback');
@@ -304,3 +305,4 @@ Template.comments_list.events({
 		}		
 	}
 });
+
