@@ -14,3 +14,22 @@
 .icon {
     width: 30px;
 }
+
+body {
+    padding-top: 70px;
+    background-image: url("river.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.screenCentered {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.panel {
+    opacity: 0.9;
+}

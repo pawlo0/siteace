@@ -1,19 +1,27 @@
 <template name="navbar">
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default navbar-fixed-top">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	      <a class="navbar-brand" href="/websites">
-	        Site Ace
-	      </a>
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>	    	
+	      <a class="navbar-brand" href="/websites">Site Ace</a>
 	    </div>
-	    <div class="nav navbar-nav navbar-right">
-        	<form class="navbar-form navbar-left" role="search">
-        		<div class="input-group">
-            		<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-        		</div>
-        	</form>	    	
-	    	{{> loginButtons}}
-	    </div>
+	    <div class="collapse navbar-collapse" id="navbar-collapse-1">	    
+		    <div class="nav navbar-nav navbar-right">
+		    	{{#if inDetails}}
+	        	<form class="navbar-form navbar-left" role="search">
+	        		<div class="input-group">
+	            		<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+	        		</div>
+	        	</form>	
+	        	{{/if}}
+		    	{{> loginButtons}}
+		    </div>
+		 </div>
 	  </div>
 	</nav>
 </template>		

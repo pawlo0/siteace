@@ -1,4 +1,4 @@
-/* global Websites Comments*/
+/* global Websites Comments Router*/
 
 Template.website_list.helpers({
 	websites:function(){
@@ -122,4 +122,12 @@ Template.comments_list.helpers({
 	getUser:function(createdBy){
 		return Meteor.users.findOne({_id: createdBy}).username
 	}
+});
+
+Template.navbar.helpers({
+	inDetails:function(){
+		if (Router.current().route.getName() == 'websites') {
+			return true;
+		}
+	}	
 });

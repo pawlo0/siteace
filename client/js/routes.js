@@ -24,7 +24,7 @@ Router.route('/websites', function() {
 });
 
 Router.route('/websites/:_id', function() {
-    this.render('navbar2', {
+    this.render('navbar', {
         to: "navbar"
     });
     this.render('website_details', {
