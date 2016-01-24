@@ -33,3 +33,15 @@ body {
 .panel {
     opacity: 0.9;
 }
+
+.glyphicon-thumbs-up {
+    font-size: 20px;
+    padding-right: 10px;
+}
+.glyphicon-thumbs-down {
+    font-size: 20px;
+    padding-right: 10px;
+}
+.votesText {
+    font-size: 20px;
+}

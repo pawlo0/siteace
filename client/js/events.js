@@ -192,6 +192,9 @@ Template.website_details.events({
 		}
 		return false;
 	},
+	"click .js-save-comment":function(){
+		$('#btn-submit').removeClass('hide');
+	},
 	"click .js-delete-website":function(event){
 		if (Meteor.user()) {
 			if (Meteor.user()._id == this.createdBy) {

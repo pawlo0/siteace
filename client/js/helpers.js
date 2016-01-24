@@ -115,6 +115,10 @@ Template.website_details.helpers({
 	},
 	comments:function(){
 		return Comments.find({websiteId: this._id});
+	},
+	getLogo:function(url){
+		var link = url.split("//")[1].split("/")[0];
+		return "http://"+link+"/favicon.ico";
 	}
 });
 
