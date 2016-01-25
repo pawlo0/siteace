@@ -5,25 +5,13 @@ Template.website_list.helpers({
 		var searchValue = Session.get("searchValue");		
 		var upvotes, downvotes;
 		if(searchValue == "" || searchValue == undefined || searchValue == null){		
-			var all = Websites.find().fetch();
+			return Websites.find({}, {sort:{rate:-1}});
 		} else {
-			var all = Websites.find({$or: [{"title": {$regex : ".*"+searchValue+".*"}},
+			return Websites.find({$or: [{"title": {$regex : ".*"+searchValue+".*"}},
                              {"url": {$regex : ".*"+searchValue+".*"}},
-                             {"description": {$regex : ".*"+searchValue+".*"}}]}).fetch();
+                             {"description": {$regex : ".*"+searchValue+".*"}}]}, {sort:{rate:-1}});
 		}
-		for (var i=0; i < all.length; i++){
-			if (all[i].upvotes) {
-				upvotes = all[i].upvotes.length;
-			} else {
-				upvotes = 0;
-			}
-			all[i].rate = upvotes;
-		}
-		var sorted = all.sort(function(a, b){
-  			return a.rate < b.rate;
-		});
 		
-		return sorted;
 	},
 	searchOn:function(){
 		var searchValue = Session.get("searchValue");

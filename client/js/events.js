@@ -115,9 +115,11 @@ Template.website_item.events({
 			var userId = Meteor.user()._id;
 			if ($.inArray(userId, this.upvotes) == -1) {
 				Websites.update({_id: this._id}, {$push: {upvotes: userId}});
+				Websites.update({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length + 1}});
 				Websites.update({_id: this._id}, {$pull: {downvotes: userId}});
 			} else {
 				Websites.update({_id: this._id}, {$pull: {upvotes: userId}});
+				Websites.update({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length - 1}});
 			}
 			
 		} else {
@@ -131,9 +133,11 @@ Template.website_item.events({
 			var userId = Meteor.user()._id;
 			if ($.inArray(userId, this.downvotes) == -1) {
 				Websites.update({_id: this._id}, {$push: {downvotes: userId}});
+				Websites.upvotes({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length - 1}});
 				Websites.update({_id: this._id}, {$pull: {upvotes: userId}});
 			} else {
 				Websites.update({_id: this._id}, {$pull: {downvotes: userId}});
+				Websites.update({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length + 1}});
 			}
 		} else {
 			$('#downvote-'+this._id).popover('toggle');
@@ -226,10 +230,13 @@ Template.website_details.events({
 		if (Meteor.user()){
 			var userId = Meteor.user()._id;
 			if ($.inArray(userId, this.upvotes) == -1) {
+				
 				Websites.update({_id: this._id}, {$push: {upvotes: userId}});
+				Websites.update({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length + 1}});
 				Websites.update({_id: this._id}, {$pull: {downvotes: userId}});
 			} else {
 				Websites.update({_id: this._id}, {$pull: {upvotes: userId}});
+				Websites.upvotes({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length - 1}});
 			}
 			
 		} else {
@@ -243,9 +250,11 @@ Template.website_details.events({
 			var userId = Meteor.user()._id;
 			if ($.inArray(userId, this.downvotes) == -1) {
 				Websites.update({_id: this._id}, {$push: {downvotes: userId}});
+				Websites.upvotes({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length - 1}});
 				Websites.update({_id: this._id}, {$pull: {upvotes: userId}});
 			} else {
 				Websites.update({_id: this._id}, {$pull: {downvotes: userId}});
+				Websites.update({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length + 1}});
 			}
 		} else {
 			$('#downvote-'+this._id).popover('toggle');
