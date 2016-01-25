@@ -17,18 +17,13 @@ Template.website_list.helpers({
 			} else {
 				upvotes = 0;
 			}
-			if (all[i].downvotes){
-				downvotes = all[i].downvotes.length;
-			} else {
-				downvotes = 0;
-			}
 			all[i].rate = upvotes;
 		}
-		all.sort(function(a, b){
+		var sorted = all.sort(function(a, b){
   			return a.rate < b.rate;
 		});
 		
-		return all;
+		return sorted;
 	},
 	searchOn:function(){
 		var searchValue = Session.get("searchValue");
