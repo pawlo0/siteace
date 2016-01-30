@@ -3,7 +3,7 @@
 	display:none;
 }
 
-.js-website_item :hover{
+.goToDetails :hover{
     cursor:pointer;
 }
 

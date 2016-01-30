@@ -23,13 +23,17 @@
 		<div class="panel-heading">
 			<div class="panel-title"><h4><a href="{{url}}" title="Follow to">{{title}}</a></h4></div>
 		</div>
-		<div class="panel-body js-website_item" title="Click to see details.">
+		<div class="panel-body js-website_item">
 			<div class="row">
 				<div class="col-xs-1">
-					<img class="media-object icon" src="{{getLogo url}}">
+					<span class="goToDetails" title="Click to see details.">
+						<img class="media-object icon" src="{{getLogo url}}">
+					</span>
 				</div>
 				<div class="col-xs-11">
-					<h3>{{title}}</h3>
+					<span class="goToDetails" title="Click to see details.">
+						<h3>{{title}}</h3>
+					</span>
 					<h5>{{description}}</h5>
 					{{#if getDate}}
 						<p>Added in: {{getDate}} by {{getAuthor createdBy}}</p>

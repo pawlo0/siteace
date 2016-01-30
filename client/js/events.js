@@ -173,7 +173,7 @@ Template.website_item.events({
 			$('#downvote-'+this._id).attr('title', "Please login to vote.");
 		}
 	},
-	"click .js-website_item":function(event){
+	"click .goToDetails":function(event){
 		window.location = "/websites/"+this._id;
 		return false;
 	}
