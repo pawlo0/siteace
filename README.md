@@ -2,13 +2,13 @@
 
 Living in http://pss.siteace.meteor.com/
 
+**Final assigment**
+
 ## Introduction to Meteor.js Development
 by University of London, Goldsmiths, University of London
 
 3rd Course on the
 Create a Web Experience Specialization
-
-**Final assigment**
 
 ## Specs
 *This site has the following specifications:*
