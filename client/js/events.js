@@ -111,67 +111,18 @@ Template.website_form.events({
 
 Template.website_item.events({
 	"click .js-upvote":function(event){
-		if (Meteor.user()){
-			var userId = Meteor.user()._id;
-			if ($.inArray(userId, this.upvotes) == -1) {
-				Websites.update({_id: this._id}, {$push: {upvotes: userId}});
-				Websites.update({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length + 1}});
-				Websites.update({_id: this._id}, {$pull: {downvotes: userId}});
-			} else {
-				Websites.update({_id: this._id}, {$pull: {upvotes: userId}});
-				Websites.update({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length - 1}});
-			}
-			
-		} else {
-			$('#upvote-'+this._id).popover('toggle');
-		}
-
+		upVote(this);
 		return false;// prevent the button from reloading the page
 	}, 
 	"click .js-downvote":function(event){
-		if (Meteor.user()){
-			var userId = Meteor.user()._id;
-			if ($.inArray(userId, this.downvotes) == -1) {
-				Websites.update({_id: this._id}, {$push: {downvotes: userId}});
-				Websites.upvotes({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length - 1}});
-				Websites.update({_id: this._id}, {$pull: {upvotes: userId}});
-			} else {
-				Websites.update({_id: this._id}, {$pull: {downvotes: userId}});
-				Websites.update({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length + 1}});
-			}
-		} else {
-			$('#downvote-'+this._id).popover('toggle');
-		}
-
+		downVote(this);
 		return false;// prevent the button from reloading the page
 	},
 	"mouseover .js-upvote":function(event){
-		if (Meteor.user()){
-			var userId = Meteor.user()._id;
-			if ($.inArray(userId, this.upvotes) == -1 && $.inArray(userId, this.downvotes) == -1) {
-				$('#upvote-'+this._id).attr('title', "Click to give an Up Vote.");
-			} else if ($.inArray(userId, this.downvotes) != -1) {
-				$('#upvote-'+this._id).attr('title', "You already voted a negative feedback. Click if you want to change your opinion.");
-			} else {
-				$('#upvote-'+this._id).attr('title', "You already Up voted. Click again to remove your vote.");
-			}
-		} else {
-			$('#upvote-'+this._id).attr('title', "Please login to vote.");
-		}
+		mouseOverUpvote(this);
 	},
 	"mouseover .js-downvote":function(event){
-		if (Meteor.user()){
-			var userId = Meteor.user()._id;
-			if ($.inArray(userId, this.upvotes) == -1 && $.inArray(userId, this.downvotes) == -1) {
-				$('#downvote-'+this._id).attr('title', "Click to give an Down Vote.");
-			} else if ($.inArray(userId, this.upvotes) != -1) {
-				$('#downvote-'+this._id).attr('title', "You already voted a positive feedback. Click if you want to change your opinion.");
-			} else {
-				$('#downvote-'+this._id).attr('title', "You already Down voted. Click again to remove your vote.");
-			}
-		} else {
-			$('#downvote-'+this._id).attr('title', "Please login to vote.");
-		}
+		mouseOverDownvote(this);
 	},
 	"click .goToDetails":function(event){
 		window.location = "/websites/"+this._id;
@@ -227,68 +178,18 @@ Template.website_details.events({
 		}		
 	},
 	"click .js-upvote":function(event){
-		if (Meteor.user()){
-			var userId = Meteor.user()._id;
-			if ($.inArray(userId, this.upvotes) == -1) {
-				
-				Websites.update({_id: this._id}, {$push: {upvotes: userId}});
-				Websites.update({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length + 1}});
-				Websites.update({_id: this._id}, {$pull: {downvotes: userId}});
-			} else {
-				Websites.update({_id: this._id}, {$pull: {upvotes: userId}});
-				Websites.upvotes({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length - 1}});
-			}
-			
-		} else {
-			$('#upvote-'+this._id).popover('toggle');
-		}
-
+		upVote(this);
 		return false;// prevent the button from reloading the page
 	}, 
 	"click .js-downvote":function(event){
-		if (Meteor.user()){
-			var userId = Meteor.user()._id;
-			if ($.inArray(userId, this.downvotes) == -1) {
-				Websites.update({_id: this._id}, {$push: {downvotes: userId}});
-				Websites.upvotes({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length - 1}});
-				Websites.update({_id: this._id}, {$pull: {upvotes: userId}});
-			} else {
-				Websites.update({_id: this._id}, {$pull: {downvotes: userId}});
-				Websites.update({_id: this._id}, {$set: {rate: Websites.findOne({_id: this._id}).upvotes.length + 1}});
-			}
-		} else {
-			$('#downvote-'+this._id).popover('toggle');
-		}
-
+		downVote(this);
 		return false;// prevent the button from reloading the page
 	},
 	"mouseover .js-upvote":function(event){
-		if (Meteor.user()){
-			var userId = Meteor.user()._id;
-			if ($.inArray(userId, this.upvotes) == -1 && $.inArray(userId, this.downvotes) == -1) {
-				$('#upvote-'+this._id).attr('title', "Click to give an Up Vote.");
-			} else if ($.inArray(userId, this.downvotes) != -1) {
-				$('#upvote-'+this._id).attr('title', "You already voted a negative feedback. Click if you want to change your opinion.");
-			} else {
-				$('#upvote-'+this._id).attr('title', "You already Up voted. Click again to remove your vote.");
-			}
-		} else {
-			$('#upvote-'+this._id).attr('title', "Please login to vote.");
-		}
+		mouseOverUpvote(this);
 	},
 	"mouseover .js-downvote":function(event){
-		if (Meteor.user()){
-			var userId = Meteor.user()._id;
-			if ($.inArray(userId, this.upvotes) == -1 && $.inArray(userId, this.downvotes) == -1) {
-				$('#downvote-'+this._id).attr('title', "Click to give an Down Vote.");
-			} else if ($.inArray(userId, this.upvotes) != -1) {
-				$('#downvote-'+this._id).attr('title', "You already voted a positive feedback. Click if you want to change your opinion.");
-			} else {
-				$('#downvote-'+this._id).attr('title', "You already Down voted. Click again to remove your vote.");
-			}
-		} else {
-			$('#downvote-'+this._id).attr('title', "Please login to vote.");
-		}
+		mouseOverDownvote(this);
 	}	
 });
 
@@ -318,3 +219,65 @@ Template.comments_list.events({
 	}
 });
 
+function upVote(object){
+	if (Meteor.user()){
+		var userId = Meteor.user()._id;
+		if ($.inArray(userId, object.upvotes) == -1) {
+			Websites.update({_id: object._id}, {$push: {upvotes: userId}});
+			Websites.update({_id: object._id}, {$set: {rate: Websites.findOne({_id: object._id}).upvotes.length + 1}});
+			Websites.update({_id: object._id}, {$pull: {downvotes: userId}});
+		} else {
+			Websites.update({_id: object._id}, {$pull: {upvotes: userId}});
+			Websites.update({_id: object._id}, {$set: {rate: Websites.findOne({_id: object._id}).upvotes.length - 1}});
+		}
+		
+	} else {
+		$('#upvote-'+object._id).popover('toggle');
+	}
+}
+
+function downVote(object){
+	if (Meteor.user()){
+		var userId = Meteor.user()._id;
+		if ($.inArray(userId, object.downvotes) == -1) {
+			Websites.update({_id: object._id}, {$push: {downvotes: userId}});
+			Websites.update({_id: object._id}, {$set: {rate: Websites.findOne({_id: object._id}).upvotes.length - 1}});
+			Websites.update({_id: object._id}, {$pull: {upvotes: userId}});
+		} else {
+			Websites.update({_id: object._id}, {$pull: {downvotes: userId}});
+			Websites.update({_id: object._id}, {$set: {rate: Websites.findOne({_id: object._id}).upvotes.length + 1}});
+		}
+	} else {
+		$('#downvote-'+object._id).popover('toggle');
+	}	
+}
+
+function mouseOverUpvote(object){
+	if (Meteor.user()){
+		var userId = Meteor.user()._id;
+		if ($.inArray(userId, object.upvotes) == -1 && $.inArray(userId, object.downvotes) == -1) {
+			$('#upvote-'+object._id).attr('title', "Click to give an Up Vote.");
+		} else if ($.inArray(userId, object.downvotes) != -1) {
+			$('#upvote-'+object._id).attr('title', "You already voted a negative feedback. Click if you want to change your opinion.");
+		} else {
+			$('#upvote-'+object._id).attr('title', "You already Up voted. Click again to remove your vote.");
+		}
+	} else {
+		$('#upvote-'+object._id).attr('title', "Please login to vote.");
+	}	
+}
+
+function mouseOverDownvote(object) {
+	if (Meteor.user()){
+		var userId = Meteor.user()._id;
+		if ($.inArray(userId, object.upvotes) == -1 && $.inArray(userId, object.downvotes) == -1) {
+			$('#downvote-'+object._id).attr('title', "Click to give an Down Vote.");
+		} else if ($.inArray(userId, object.upvotes) != -1) {
+			$('#downvote-'+object._id).attr('title', "You already voted a positive feedback. Click if you want to change your opinion.");
+		} else {
+			$('#downvote-'+object._id).attr('title', "You already Down voted. Click again to remove your vote.");
+		}
+	} else {
+		$('#downvote-'+object._id).attr('title', "Please login to vote.");
+	}	
+}
