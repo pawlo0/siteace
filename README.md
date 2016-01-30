@@ -2,15 +2,16 @@
 
 Living in http://pss.siteace.meteor.com/
 
-**Final assigment on Coursera. Org 
-Introduction to Meteor.js Development
+**Final assigment**
+
+## Introduction to Meteor.js Development
 by University of London, Goldsmiths, University of London
 
-3rd Course on the 
-Create a Web Experience Specialization **
+3rd Course on the
+Create a Web Experience Specialization
 
-
-*This site has the following specifications:*
+## Specs
+**This site has the following specifications:**
 
 - Users can register and login.
 - Users can post new websites if they are logged in.
