@@ -53,6 +53,9 @@ Template.website_form.events({
 
 	},
 	"keyup #url":function(event){
+		$('.js-reatriveData').click();
+	},
+	"click .js-reatriveData":function(event){
 		var url = $("#url").val();
 		if (url.substring(0,7).toLowerCase() != "http://"){
 			url = "http://"+url;
