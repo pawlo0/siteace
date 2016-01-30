@@ -45,3 +45,7 @@ body {
 .votesText {
     font-size: 20px;
 }
+
+.transparant {
+	opacity: 0.3;
+}

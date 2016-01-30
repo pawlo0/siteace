@@ -25,6 +25,7 @@ Template.website_list.helpers({
 
 Template.website_item.helpers({
 	totalUpvotes:function(){
+		hideNotVoted(this);
 		if (this.upvotes) {
 			return this.upvotes.length;
 		} else {
@@ -67,6 +68,7 @@ Template.website_item.helpers({
 
 Template.website_details.helpers({
 	totalUpvotes:function(){
+		hideNotVoted(this);
 		if (this.upvotes) {
 			return this.upvotes.length;
 		} else {
@@ -118,3 +120,19 @@ Template.navbar.helpers({
 		}
 	}	
 });
+
+function hideNotVoted(object){
+	if (Meteor.user()){
+		var userId = Meteor.user()._id;
+		if ($.inArray(userId, object.upvotes) != -1 && $.inArray(userId, object.downvotes) == -1){
+			$('#downvote-'+object._id).addClass('transparant');
+			$('#upvote-'+object._id).removeClass('transparant');
+		} else if ($.inArray(userId, object.upvotes) == -1 && $.inArray(userId, object.downvotes) != -1) {
+			$('#upvote-'+object._id).addClass('transparant');
+			$('#downvote-'+object._id).removeClass('transparant');
+		} else {
+			$('#upvote-'+object._id).removeClass('transparant');
+			$('#downvote-'+object._id).removeClass('transparant');
+		}
+	}
+}
